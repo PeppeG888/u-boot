@@ -32,9 +32,14 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        build-mode: ${{ matrix.build-mode }}
-        # Percorso della query che hai caricato nel repository 
+        build-mode: manual # Cambia qui
         queries: ./.github/codeql-queries/10_taint_tracking.ql
+
+    # AGGIUNGI QUESTO STEP QUI
+    - name: Build U-Boot
+      run: |
+        make sandbox_defconfig
+        make -j$(nproc)
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
