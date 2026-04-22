@@ -39,12 +39,14 @@ jobs:
     - name: Install Build Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libssl-dev bc bison flex
+        # Aggiungiamo libsdl1.2-dev per sdl-config e assicuriamoci di avere tutto
+        sudo apt-get install -y libssl-dev bc bison flex libsdl1.2-dev
 
     - name: Build U-Boot
       run: |
         make sandbox_defconfig
-        make -j$(nproc)
+        # Il trucco è aggiungere HOSTCFLAGS="-fcommon" per risolvere il problema di yylloc
+        make -j$(nproc) HOSTCFLAGS="-fcommon"
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
