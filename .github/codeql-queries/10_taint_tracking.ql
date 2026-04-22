@@ -1,7 +1,15 @@
 
 /**
-* @kind path-problem
-*/
+ * @name Network byte swap flows to memcpy
+ * @description Traccia il flusso di dati dai macro network-to-host alla lunghezza di memcpy.
+ * @kind path-problem
+ * @problem.severity error
+ * @security-severity 8.0
+ * @precision high
+ * @id cpp/uboot/network-to-memcpy-taint
+ * @tags security
+ * external/cwe/cwe-120
+ */
 import cpp
 import semmle.code.cpp.dataflow.TaintTracking
 import MyTaint::PathGraph
